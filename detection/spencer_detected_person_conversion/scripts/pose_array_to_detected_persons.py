@@ -44,7 +44,7 @@ def newMessageReceived(poseArray):
 
     for pose in poseArray.poses:
         detectedPerson = DetectedPerson()
-        detectedPerson.modality = modality;
+        detectedPerson.modality = modality
         detectedPerson.confidence = confidence
         detectedPerson.detection_id = detectionId
         detectedPerson.pose.pose = pose

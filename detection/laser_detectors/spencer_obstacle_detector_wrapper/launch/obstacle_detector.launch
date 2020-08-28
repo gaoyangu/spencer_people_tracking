@@ -5,7 +5,6 @@
  
     <arg name="detection_id_offset" default="0"/>
     <arg name="detection_id_increment" default="1"/>
-    <arg name="cov_scale" default="0.01"/>
 
 
     <group ns="$(arg node_prefix)" >
@@ -16,8 +15,10 @@
         <node name="converter" pkg="spencer_detected_person_conversion" type="pose_array_to_detected_persons.py" output="screen">
             <param name="detection_id_offset" value="$(arg detection_id_offset)"/>
             <param name="detection_id_increment" value="$(arg detection_id_increment)"/>
-            <param name="use_object_id" value="false"/>
-            <param name="cov_scale" value="$(arg cov_scale)"/>
+            <param name="modality" value="laser2d"/>  
+            <param name="confidence" value="1.0"/>
+            <param name="pos_variance" value="0.2"/> 
+            <param name="rot_variance" value="10"/>        
 
             <!-- FIXME: I believe the target topic should be people_tracker_measurements (=fused), otherwise we get one
                  detection per single leg, leading to duplicate person tracks. Couldn't test this on SPENCER data, as our
