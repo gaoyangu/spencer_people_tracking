@@ -1,7 +1,7 @@
 fixed_frame:            odom
 connection_threshold:   0.06
 min_points_per_group:   5
-leg_reliability_limit:  0.7
+leg_reliability_limit:  0.2 # before 0.7
 no_observation_timeout: 0.5
 max_second_leg_age:     2.0
 max_track_jump:         1.0
