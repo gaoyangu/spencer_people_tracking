@@ -21,7 +21,7 @@
         <remap from="/spencer/perception/detected_persons" to="/spencer/perception/detected_persons_unfiltered" if="$(arg static_map_filter)"/>
         <remap from="/spencer/perception_internal/detected_person_association/lasers_high_recall_aggregated" to="/spencer/perception_internal/detected_person_association/lasers_high_recall_aggregated_unfiltered" if="$(arg static_map_filter)"/>
 
-        <include file="$(find spencer_detected_person_association)/launch/detection_to_detection_fusion_pipeline.launch">
+        <include file="$(find spencer_detected_person_association)/launch/detection_to_detection_fusion_pipeline_lite.launch">
             <!-- Also fuse RGB-D detectors, or just use high-recall and high-precision lasers? -->
             <arg name="rgbd" value="$(arg rgbd)"/>
         </include>
@@ -33,13 +33,6 @@
         <node name="filter_detections_by_static_map" pkg="spencer_tracking_utils" type="filter_detections_by_static_map" output="screen">
             <remap from="input_detections" to="/spencer/perception/detected_persons_unfiltered"/>
             <remap from="output_detections" to="/spencer/perception/detected_persons"/>
-            <rosparam param="modalities_to_always_passthrough">[rgbd]</rosparam>  <!-- only filter out laser and monocular vision, as RGB-D does not have many false positives -->
-        </node>
-
-        <!-- High-recall detections -->
-        <node name="filter_low_confidence_detections_by_static_map" pkg="spencer_tracking_utils" type="filter_detections_by_static_map" output="screen">
-            <remap from="input_detections" to="/spencer/perception_internal/detected_person_association/lasers_high_recall_aggregated_unfiltered"/>
-            <remap from="output_detections" to="/spencer/perception_internal/detected_person_association/lasers_high_recall_aggregated"/>
             <rosparam param="modalities_to_always_passthrough">[rgbd]</rosparam>  <!-- only filter out laser and monocular vision, as RGB-D does not have many false positives -->
         </node>
     </group>
@@ -61,6 +54,6 @@
     </group>
 
     <!-- Filter tracks that are output by people tracker (e.g. visually confirmed tracks, moving tracks etc. on separate topics) -->
-    <include file="$(find spencer_people_tracking_launch)/launch/tracking/filter_tracks.launch"/>
+    <include file="$(find spencer_people_tracking_launch)/launch/tracking/filter_tracks_lite.launch"/>
 
 </launch>
