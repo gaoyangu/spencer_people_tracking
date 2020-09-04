@@ -1,5 +1,5 @@
 <launch>
-
+    <arg name="rgbd" default="true"/>
     <!-- Nodelet manager for all detected person association-related nodelets -->
     <group ns="/spencer/perception_internal/detected_person_association">
         <node name="detected_person_association_nodelet_manager" pkg="nodelet" type="nodelet" args="manager" output="screen" required="true"/>
